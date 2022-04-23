@@ -46,7 +46,8 @@ public class SnakeAndLadder {
                     }
                     break;
             }
-            System.out.println("#Current Position :" + currentPosition);
+            System.out.println("Dice Count : " + diceCount);
+            System.out.println("#Player's Position :" + POSITION + ",  #Current Position :" + currentPosition);
         }
         return currentPosition;
     }
