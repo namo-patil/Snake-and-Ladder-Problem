@@ -9,7 +9,6 @@ public class SnakeAndLadder {
     public static final int LADDER = 1;
     public static final int SNAKE = 2;
     static String POSITION;
-    static int currentPosition;
     static Random random = new Random();
 
     public static int dieRoll() {
@@ -19,9 +18,11 @@ public class SnakeAndLadder {
     }
 
     public static int playerChecksOption() {
-        currentPosition = START_POSITION;
-        while (currentPosition <= END_POSITION) {
+        int diceCount = 0;
+        int currentPosition = START_POSITION;
+        while (currentPosition < END_POSITION) {
             int diceNumber = dieRoll();
+            diceCount++;
             int checkOption = random.nextInt(3);
             switch (checkOption) {
                 case NO_PLAY:
@@ -30,18 +31,23 @@ public class SnakeAndLadder {
                     break;
                 case LADDER:
                     POSITION = "Player is on Ladder";
-                    currentPosition += diceNumber;
+                    if (currentPosition + diceNumber > END_POSITION) {
+                        currentPosition = currentPosition;
+                    } else {
+                        currentPosition += diceNumber;
+                    }
                     break;
                 case SNAKE:
                     POSITION = "Player is on Snake";
-                    if (currentPosition - diceNumber < START_POSITION) {
+                    if (currentPosition - diceNumber <= START_POSITION) {
                         currentPosition = START_POSITION;
                     } else {
                         currentPosition -= diceNumber;
                     }
                     break;
             }
-            System.out.println("Player's Position :" + POSITION + ",  #Current Position :" + currentPosition);
+            System.out.println("#Player's Position :" + POSITION + ",  #Current Position :" + currentPosition);
+            System.out.println("Dice Count : " + diceCount);
         }
         return currentPosition;
     }
